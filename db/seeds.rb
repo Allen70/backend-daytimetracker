@@ -5,18 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'byebug'
+require 'rest-client'
 
+Day.destroy_all
 
-Day.create({
-    sunrise: "now",
-    sunset: "there",
-    day_length: "Never long enough",
-    solar_noon: "rarely noon"
-})
+response = RestClient.get('https://api.sunrise-sunset.org/json?lat=39.7392&lng=104.9903')
+parsed_response = JSON.parse(response)
 
-Day.create({
-    sunrise: "Then",
-    sunset: "Here",
-    day_length: "Sometimes long enough",
-    solar_noon: "Exactly noon"
-})
+parsed_response.map do |results|
+    day = results[1]
+    Day.create(sunrise: day['sunrise'], sunset: day['sunset'], day_length: day['day_length'], solar_noon: day['solar_noon'])
+
+end
