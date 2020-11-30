@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sunrise: MyString
+  sunset: MyString
+
+two:
+  sunrise: MyString
+  sunset: MyString
