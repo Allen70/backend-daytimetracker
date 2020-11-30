@@ -10,11 +10,41 @@ require 'rest-client'
 
 Day.destroy_all
 
-response = RestClient.get('https://api.sunrise-sunset.org/json?lat=39.7392&lng=104.9903')
-parsed_response = JSON.parse(response)
+cities = [
+    {
+    name: 'New York',
+    lat: '40.7128',
+    lng: '74.0060'
+    },{
+    name: 'Los Angeles',
+    lat: '40.7128',
+    lng: '74.0060'
+    },{
+    name: 'Denver',
+    lat: '39.7392',
+    lng: '104.9903'
+    },{
+    name: 'Seattle',
+    lat: '47.6062',
+    lng: '122.3321'
+    },{
+    name: 'Detroit',
+    lat: '42.3314',
+    lng: '83.0458'
+    },{
+    name: 'Austin',
+    lat: '30.2672',
+    lng: '97.7431'
+    }
+]
+cities.map do |city|
+    response = RestClient.get("https://api.sunrise-sunset.org/json?lat=#{city[:lat]}&lng=#{city[:lng]}")
+        parsed_response = JSON.parse(response)
 
-parsed_response.map do |results|
-    day = results[1]
-    Day.create(sunrise: day['sunrise'], sunset: day['sunset'], day_length: day['day_length'], solar_noon: day['solar_noon'])
+        parsed_response.map do |results|
+        day = results[1]
+        Day.create(sunrise: day['sunrise'], sunset: day['sunset'], day_length: day['day_length'], solar_noon: day['solar_noon'], name: city[:name])
+end
+
 
 end
