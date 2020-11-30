@@ -42,9 +42,9 @@ cities.map do |city|
         parsed_response = JSON.parse(response)
 
         parsed_response.map do |results|
-        day = results[1]
-        Day.create(sunrise: day['sunrise'], sunset: day['sunset'], day_length: day['day_length'], solar_noon: day['solar_noon'], name: city[:name])
-end
-
-
+            if results[0] == "results"
+                day = results[1]
+                Day.create(sunrise: day['sunrise'], sunset: day['sunset'], day_length: day['day_length'], solar_noon: day['solar_noon'], name: city[:name])
+            end
+    end
 end
