@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_181225) do
+ActiveRecord::Schema.define(version: 2020_11_30_214258) do
 
   create_table "days", force: :cascade do |t|
     t.string "sunrise"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_181225) do
     t.string "solar_noon"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
   end
 
 end
